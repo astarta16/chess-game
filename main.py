@@ -23,6 +23,7 @@ captured_pieces_white = []
 captured_pieces_black = []
 
 
+# add images
 black_queen = pygame.image.load('assets/images/black queen.png')
 black_queen = pygame.transform.scale(black_queen, (80, 80))
 black_queen_small = pygame.transform.scale(black_queen, (45, 45))
