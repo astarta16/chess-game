@@ -153,7 +153,6 @@ def check_king(position, color):
     else:
         friends_list = black_locations
         enemies_list = white_locations
-    # 8 squares to check for kings, they can go one square any direction
     targets = [(1, 0), (1, 1), (1, -1), (-1, 0), (-1, 1), (-1, -1), (0, 1), (0, -1)]
     for i in range(8):
         target = (position[0] + targets[i][0], position[1] + targets[i][1])
