@@ -21,8 +21,11 @@ black_locations = [(0, 7), (1, 7), (2, 7), (3, 7), (4, 7), (5, 7), (6, 7), (7, 7
                    (0, 6), (1, 6), (2, 6), (3, 6), (4, 6), (5, 6), (6, 6), (7, 6)]
 captured_pieces_white = []
 captured_pieces_black = []
-
-
+# 0 - whites turn no selection: 1-whites turn piece selected: 2- black turn no selection, 3 - black turn piece selected
+turn_step = 0
+selection = 100
+valid_moves = []
+# load in game piece images (queen, king, rook, bishop, knight, pawn) x 2
 black_queen = pygame.image.load('assets/images/black queen.png')
 black_queen = pygame.transform.scale(black_queen, (80, 80))
 black_queen_small = pygame.transform.scale(black_queen, (45, 45))
@@ -66,11 +69,13 @@ black_images = [black_pawn, black_queen, black_king, black_knight, black_rook, b
 small_black_images = [black_pawn_small, black_queen_small, black_king_small, black_knight_small,
                       black_rook_small, black_bishop_small]
 piece_list = ['pawn', 'queen', 'king', 'knight', 'rook', 'bishop']
-
+# check variables/ flashing counter
 counter = 0
 winner = ''
 game_over = False
 
+
+# draw main game board
 def draw_board():
     for i in range(32):
         column = i % 4
@@ -89,7 +94,9 @@ def draw_board():
             pygame.draw.line(screen, 'black', (0, 100 * i), (800, 100 * i), 2)
             pygame.draw.line(screen, 'black', (100 * i, 0), (100 * i, 800), 2)
         screen.blit(medium_font.render('FORFEIT', True, 'black'), (810, 830))
-        
+
+
+# draw pieces onto board
 def draw_pieces():
     for i in range(len(white_pieces)):
         index = piece_list.index(white_pieces[i])
@@ -113,6 +120,8 @@ def draw_pieces():
                 pygame.draw.rect(screen, 'blue', [black_locations[i][0] * 100 + 1, black_locations[i][1] * 100 + 1,
                                                   100, 100], 2)
 
+
+# function to check all pieces valid options on board
 def check_options(pieces, locations, turn):
     moves_list = []
     all_moves_list = []
@@ -134,6 +143,8 @@ def check_options(pieces, locations, turn):
         all_moves_list.append(moves_list)
     return all_moves_list
 
+
+# check king valid moves
 def check_king(position, color):
     moves_list = []
     if color == 'white':
